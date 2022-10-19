@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "utn.h"
 
 #define LIBRE 0
@@ -24,4 +25,9 @@ int PedirCilindrada();
 int PedirPuntaje();
 int PedirIdTipo();
 int PedirIdColor();
+int PedirDia();
+int PedirMes();
+int PedirAnio();
+
+
 #endif /* INPUTS_H_ */

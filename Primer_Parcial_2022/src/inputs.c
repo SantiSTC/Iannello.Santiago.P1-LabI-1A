@@ -43,6 +43,22 @@ int ElegirOpcion()
 	return opcionElegida;
 }
 
+int PedirEntero()
+{
+	int unEntero;
+
+	scanf("%d", &unEntero);
+
+	while(isdigit(unEntero) != 0)
+	{
+		printf("ERROR, debe ingresar un numero\n");
+		fflush(stdin);
+		scanf("%d", &unEntero);
+	}
+
+	return unEntero;
+}
+
 int PedirID()
 {
 	char idAux[10];
@@ -131,9 +147,50 @@ int PedirIdColor()
 
 
 
+int PedirDia()
+{
+	int dia;
 
+		printf("\nIngrese el dia: ");
+		dia = PedirEntero();
+		while(dia < 1 || dia > 31)
+		{
+			printf("\nERROR, Ingrese un dia valido: ");
+			dia = PedirEntero();
+		}
 
+	return dia;
+}
 
+int PedirMes()
+{
+	int mes;
+
+	printf("\nIngrese el mes: ");
+	mes = PedirEntero();
+	while(mes < 1 || mes > 12)
+	{
+		printf("\nERROR, Ingrese un mes valido: ");
+		mes = PedirEntero();
+	}
+
+	return mes;
+}
+
+int PedirAnio()
+{
+	int anio;
+
+	printf("\nIngrese el año: ");
+	anio = PedirEntero();
+	while(anio < 0 || anio > 10000)
+	{
+		printf("\nERROR, Ingrese un año valido: ");
+		anio = PedirEntero();
+	}
+
+	return anio;
+}
 
 
 

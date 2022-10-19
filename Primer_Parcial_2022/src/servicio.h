@@ -17,4 +17,7 @@ typedef struct
 	float precio;
 }eServicio;
 
+void MostrarListaServicios(eServicio listaServicios[], int sizeServicios);
+void MostrarUnServicio(eServicio unServicio);
+
 #endif /* SERVICIO_H_ */

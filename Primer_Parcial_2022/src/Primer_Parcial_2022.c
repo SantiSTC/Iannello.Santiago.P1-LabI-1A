@@ -10,17 +10,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "inputs.h"
-#include "motos.h"
-#include "servicio.h"
-#include "trabajo.h"
-#include "color.h"
-#include "tipo.h"
+
+#include "nexo.h"
 
 #define T_T 4
 #define T_C 5
 #define T_S 4
 #define T_M 100
+#define T_TR 100
 
 eTipo listaTipos[T_T] = {{1000, "Enduro"}, {1001, "Chopera"}, {1002, "Scooter"}, {1003, "Vintage"}};
 
@@ -30,12 +27,15 @@ eServicio listaServicios[T_S] = {{20000, "Limpieza", 450},{20001, "Ajuste", 300}
 
 eMoto listaMotos[T_M];
 
+eTrabajo listaTrabajos[T_TR];
+
 int main(void) {
 	setbuf(stdout, NULL);
 
 	int opcionElegida;
 	int retorno;
-	int cantidadAltas = 0;
+	int altasMotos = 0;
+	int altasTrabajos = 0;
 
 	InicializarMotos(listaMotos, T_M);
 
@@ -56,13 +56,13 @@ int main(void) {
 				else
 				{
 					printf("Se ha dado de alta correctamente a la moto");
-					cantidadAltas++;
+					altasMotos++;
 				}
 			break;
 			case 2:
 				printf("\n< Modificar Moto >\n");
 
-				if(cantidadAltas == 0)
+				if(altasMotos == 0)
 				{
 					printf("Se debera dar de alta al menos a una moto antes de ingresar a esta opcion.");
 				}
@@ -82,7 +82,7 @@ int main(void) {
 			case 3:
 				printf("\n< Baja Moto >\n");
 
-				if(cantidadAltas == 0)
+				if(altasMotos == 0)
 				{
 					printf("Se debera dar de alta al menos a una moto antes de ingresar a esta opcion.");
 				}
@@ -96,27 +96,78 @@ int main(void) {
 					else
 					{
 						printf("Se ha dado de baja correctamente a la moto");
-						cantidadAltas--;
+						altasMotos--;
 					}
 				}
 			break;
 			case 4:
+				printf("\n< Listar Motos >\n");
 
+				if(altasMotos == 0)
+				{
+					printf("Se debera dar de alta al menos a una moto antes de ingresar a esta opcion.");
+				}
+				else
+				{
+					retorno = ListarMotos(listaMotos, T_M);
+					if(retorno == -1)
+					{
+						printf("No se han podido listar las motos");
+					}
+					else
+					{
+						printf("Se han listado correctamente las motos");
+					}
+				}
 			break;
 			case 5:
+				printf("\n< Listar Tipos >\n");
 
+				MostrarListaTipos(listaTipos, T_T);
 			break;
 			case 6:
+				printf("\n< Listar Colores >\n");
 
+				MostrarListaColores(listaColores, T_C);
 			break;
 			case 7:
+				printf("\n< Listar Servicios >\n");
 
+				MostrarListaServicios(listaServicios, T_S);
 			break;
 			case 8:
+				printf("\n< Alta Trabajo >\n");
 
+				retorno = CargarListaTrabajos(listaTrabajos, T_TR, listaMotos, T_M, listaServicios, T_S);
+				if(retorno == -1)
+				{
+					printf("No se ha podido dar de alta al trabajo");
+				}
+				else
+				{
+					printf("Se ha dado de alta correctamente al trabajo");
+					altasTrabajos++;
+				}
 			break;
 			case 9:
+				printf("\n< Listar Trabajos >\n");
 
+				if(altasTrabajos == 0)
+				{
+					printf("Se debera dar de alta al menos a un trabajo antes de ingresar a esta opcion.");
+				}
+				else
+				{
+					//retorno = ;
+					if(retorno == -1)
+					{
+						printf("No se han podido listar los trabajos");
+					}
+					else
+					{
+						printf("Se han listado correctamente los trabajos");
+					}
+				}
 			break;
 		}
 

@@ -23,37 +23,7 @@ int BuscarEspacio(eMoto listaMotos[], int sizeMotos)
 	return index;
 }
 
-eMoto CargarMoto(eTipo listaTipos[], int sizeTipos, eColor listaColores[], int sizeColores)
-{
-	eMoto unaMoto;
 
-	unaMoto.id = PedirID();
-	PedirMarca(unaMoto.marca);
-	MostrarListaTipos(listaTipos, sizeTipos);
-	unaMoto.idTipo = PedirIdTipo();
-	MostrarListaColores(listaColores, sizeColores);
-	unaMoto.idColor = PedirIdColor();
-
-	unaMoto.cilindrada = PedirCilindrada();
-	unaMoto.puntaje = PedirPuntaje();
-
-	unaMoto.estado = OCUPADO;
-
-	return unaMoto;
-}
-
-int CargarListaMotos(eMoto listaMotos[], int sizeMotos, eTipo listaTipos[], int sizeTipos, eColor listaColores[], int sizeColores)
-{
-	int index;
-
-	index = BuscarEspacio(listaMotos, sizeMotos);
-	if(index != -1)
-	{
-		listaMotos[index] = CargarMoto(listaTipos, sizeTipos, listaColores, sizeColores);
-	}
-
-	return index;
-}
 
 void InicializarMotos(eMoto listaMotos[], int sizeMotos)
 {
@@ -109,49 +79,39 @@ int BajarMoto(eMoto listaMotos[], int sizeMotos)
 	return retorno;
 }
 
-int ModificarServicio(eMoto listaMotos[], int sizeMotos, eColor listaColores[], int sizeColores)
+
+
+int OrdenarMotosPorID(eMoto listaMotos[], int sizeMotos)
 {
-	int retorno = -1;
-	int idIngresado;
-	int opcion;
-	char opcionAux[10];
-	int validar;
+	int retorno = 0;
+	eMoto aux;
 
-	MostrarListaMotos(listaMotos, sizeMotos);
-
-	printf("Modificar moto\n");
-	idIngresado = PedirID();
-
-	for(int i=0; i<sizeMotos; i++)
+	for(int i=0; i<sizeMotos-1; i++)
 	{
-		if(idIngresado == listaMotos[i].id && listaMotos[i].estado == OCUPADO)
+		for(int j=i+1; j<sizeMotos; j++)
 		{
-			validar = getStringNumeros("¿Que desea modificar? \n1- Color \n2- Puntaje \nElija una opcion: ", opcionAux);
-			opcion = atoi(opcionAux);
-			while(validar == 0 || (opcion != 1 && opcion != 2))
+			if(listaMotos[i].id > listaMotos[j].id)
 			{
-				validar = getStringNumeros("ERROR, ¿Que desea modificar? \n1- Color \n2- Puntaje \nElija una opcion: ", opcionAux);
-				opcion = atoi(opcionAux);
-			}
-
-			if(opcion == 1)
-			{
-				MostrarListaColores(listaColores, sizeColores);
-				listaMotos[i].idColor = PedirIdColor();
-			}
-			else
-			{
-				listaMotos[i].puntaje = PedirPuntaje();
+				aux = listaMotos[i];
+				listaMotos[i] = listaMotos[j];
+				listaMotos[j] = aux;
 			}
 			retorno = 1;
-			break;
 		}
 	}
+
 	return retorno;
 }
 
+int ListarMotos(eMoto listaMotos[], int sizeMotos)
+{
+	int retorno;
 
+	retorno = OrdenarMotosPorID(listaMotos, sizeMotos);
+	MostrarListaMotos(listaMotos, sizeMotos);
 
+	return retorno;
+}
 
 
 

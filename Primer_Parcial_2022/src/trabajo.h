@@ -22,7 +22,11 @@ typedef struct
 	int id;
 	int idMoto;
 	int idServicio;
-
+	eFecha fecha;
+	int estado;
 }eTrabajo;
+
+int BuscarEspacioTrabajos(eTrabajo listaTrabajos[], int sizeTrabajos);
+
 
 #endif /* TRABAJO_H_ */
